@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: 🏗️ Build React App
-        run: npm run build
+        run: CI=false npm run build   # ← This is the fix!
 
       - name: 📂 Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -34,10 +34,11 @@ jobs:
           port: 21
           protocol: ftp
           security: loose
-          local-dir: ./dist/      # ← Vite uses dist/
+          local-dir: ./build/         # ← Create React App uses build/
           server-dir: public_html/
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             .github/**
+            README.md
