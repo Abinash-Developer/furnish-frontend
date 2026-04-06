@@ -1,0 +1,49 @@
+name: 🚀 Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # Triggers on push to main branch
+
+jobs:
+  deploy:
+    name: Deploy via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout your code
+      - name: ✅ Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. (Optional) Install dependencies & build
+      # Uncomment based on your project type:
+
+      # --- For Node.js / React / Vue / Next.js ---
+      # - name: 🔧 Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '20'
+      # - name: 📦 Install & Build
+      #   run: |
+      #     npm install
+      #     npm run build
+
+      # --- For PHP / Static HTML ---
+      # No build step needed
+
+      # 3. Deploy via FTP
+      - name: 📂 Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          local-dir: ./          # Change to ./dist or ./build if you have a build step
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .github/**
+            README.md
