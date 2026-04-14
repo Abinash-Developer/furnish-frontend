@@ -41,7 +41,7 @@ const Navbar = ()=>{
       </ul>
     </div>
     <div className="d-flex align-items-center gap-4">
-       <Link className="nav-link " to="/contact">
+       <Link className="nav-link " to="/signin">
             Sign In
           </Link>
       <span className="d-flex align-items-center gap-2 fw-bold">
